@@ -1,0 +1,530 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 1400px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #2d3748;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.controls button {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#resetBtn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+#clearLinesBtn {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+#switchTeamsBtn {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+.controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.controls button:active {
+    transform: translateY(0);
+}
+
+.formation-selectors {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.formation-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.formation-selector label {
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 16px;
+}
+
+.formation-selector select {
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    background: white;
+    color: #2d3748;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.formation-selector select:hover {
+    border-color: #764ba2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.formation-selector select:focus {
+    outline: none;
+    border-color: #764ba2;
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.1);
+}
+
+.field-container {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.field {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background:
+        repeating-linear-gradient(45deg,
+            #4a7c2c 0px,
+            #4a7c2c 40px,
+            #5a8f3a 40px,
+            #5a8f3a 80px);
+    border: 4px solid #fff;
+    border-radius: 10px;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
+    overflow: visible;
+}
+
+/* Center line - vertical */
+.field::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+/* Center circle */
+.field::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+/* Center spot */
+.field-markings::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+/* Field markings container */
+.field-markings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Left penalty area */
+.penalty-area-left {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16%;
+    height: 55%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-left: none;
+}
+
+/* Right penalty area */
+.penalty-area-right {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16%;
+    height: 55%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-right: none;
+}
+
+/* Left goal area */
+.goal-area-left {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6%;
+    height: 28%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-left: none;
+}
+
+/* Right goal area */
+.goal-area-right {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6%;
+    height: 28%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-right: none;
+}
+
+/* Penalty spots */
+.penalty-spot-left {
+    position: absolute;
+    left: 11%;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.penalty-spot-right {
+    position: absolute;
+    right: 11%;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    transform: translate(50%, -50%);
+}
+
+/* Corner arcs */
+.corner-arc {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+}
+
+.corner-arc.top-left {
+    top: -10px;
+    left: -10px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.corner-arc.top-right {
+    top: -10px;
+    right: -10px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.corner-arc.bottom-left {
+    bottom: -10px;
+    left: -10px;
+    border-right: none;
+    border-top: none;
+}
+
+.corner-arc.bottom-right {
+    bottom: -10px;
+    right: -10px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Penalty arcs (kick arcs) */
+.penalty-arc-left {
+    position: absolute;
+    left: 16%;
+    top: 50%;
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+    transform: translate(-50%, -50%);
+}
+
+.penalty-arc-right {
+    position: absolute;
+    right: 16%;
+    top: 50%;
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    transform: translate(50%, -50%);
+}
+
+/* Goals */
+.goal {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 20%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    z-index: 0;
+}
+
+/* Goal net pattern - horizontal lines */
+.goal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 8px,
+            rgba(255, 255, 255, 0.3) 8px,
+            rgba(255, 255, 255, 0.3) 9px);
+}
+
+/* Goal net pattern - vertical lines */
+.goal::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: repeating-linear-gradient(90deg,
+            transparent,
+            transparent 8px,
+            rgba(255, 255, 255, 0.3) 8px,
+            rgba(255, 255, 255, 0.3) 9px);
+}
+
+.goal.left {
+    left: -30px;
+    border-left: none;
+}
+
+.goal.right {
+    right: -30px;
+    border-right: none;
+}
+
+
+#linesCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.player {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: move;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+.player:hover {
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+}
+
+.player.dragging {
+    opacity: 0.7;
+    cursor: grabbing;
+    z-index: 1000;
+}
+
+.player.red {
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+}
+
+.player.blue {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.position-label {
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    user-select: none;
+    pointer-events: none;
+}
+
+.substitutes-container {
+    display: flex;
+    gap: 30px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.subs-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.subs-section h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #2d3748;
+    font-size: 1.5em;
+}
+
+.substitutes {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    flex-wrap: wrap;
+}
+
+.player.sub {
+    position: relative;
+    transform: none;
+    opacity: 0.8;
+    cursor: default;
+}
+
+.player.sub:hover {
+    transform: scale(1.15);
+    opacity: 1;
+    cursor: default;
+}
+
+/* Soccer Ball */
+.ball {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    cursor: grab;
+    z-index: 5;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    transition: transform 0.2s ease, filter 0.2s ease;
+    user-select: none;
+}
+
+.ball:hover {
+    transform: translate(-50%, -50%) scale(1.15);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+}
+
+.ball.dragging {
+    cursor: grabbing;
+    transform: translate(-50%, -50%) scale(1.2);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .field {
+        height: 400px;
+    }
+
+    .player {
+        width: 40px;
+        height: 40px;
+    }
+
+    .position-label {
+        font-size: 10px;
+    }
+
+    .controls button {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+}

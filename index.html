@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>互動式足球戰術版</title>
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+</head>
+
+<body>
+    <div class="container">
+        <h1>互動式足球戰術版</h1>
+
+        <div class="controls">
+            <button id="resetBtn">重置位置</button>
+            <button id="clearLinesBtn">清除線條</button>
+            <button id="switchTeamsBtn">切換隊伍</button>
+        </div>
+
+        <div class="formation-selectors">
+            <div class="formation-selector">
+                <label for="redFormation">紅隊陣型：</label>
+                <select id="redFormation">
+                    <option
+                        value="4-3-3"
+                        selected
+                    >4-3-3</option>
+                    <option value="4-4-2">4-4-2</option>
+                    <option value="3-5-2">3-5-2</option>
+                    <option value="5-3-2">5-3-2</option>
+                    <option value="4-2-3-1">4-2-3-1</option>
+                    <option value="3-4-3">3-4-3</option>
+                </select>
+            </div>
+            <div class="formation-selector">
+                <label for="blueFormation">藍隊陣型：</label>
+                <select id="blueFormation">
+                    <option
+                        value="4-3-3"
+                        selected
+                    >4-3-3</option>
+                    <option value="4-4-2">4-4-2</option>
+                    <option value="3-5-2">3-5-2</option>
+                    <option value="5-3-2">5-3-2</option>
+                    <option value="4-2-3-1">4-2-3-1</option>
+                    <option value="3-4-3">3-4-3</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="field-container">
+            <div
+                id="field"
+                class="field"
+            >
+                <!-- Field Markings -->
+                <div class="field-markings">
+                    <!-- Penalty Areas -->
+                    <div class="penalty-area-left"></div>
+                    <div class="penalty-area-right"></div>
+
+                    <!-- Goal Areas -->
+                    <div class="goal-area-left"></div>
+                    <div class="goal-area-right"></div>
+
+                    <!-- Penalty Spots -->
+                    <div class="penalty-spot-left"></div>
+                    <div class="penalty-spot-right"></div>
+
+                    <!-- Penalty Arcs -->
+                    <div class="penalty-arc-left"></div>
+                    <div class="penalty-arc-right"></div>
+
+                    <!-- Corner Arcs -->
+                    <div class="corner-arc top-left"></div>
+                    <div class="corner-arc top-right"></div>
+                    <div class="corner-arc bottom-left"></div>
+                    <div class="corner-arc bottom-right"></div>
+                </div>
+
+                <!-- Goals -->
+                <div class="goal left"></div>
+                <div class="goal right"></div>
+
+                <!-- Red Team (Left) -->
+                <div
+                    class="player red"
+                    data-position="GK"
+                    data-team="red"
+                    style="left: 5%; top: 50%;"
+                >
+                    <span class="position-label">GK</span>
+                </div>
+                <div
+                    class="player red"
+                    data-position="LB"
+                    data-team="red"
+                    style="left: 20%; top: 15%;"
+                >
+                    <span class="position-label">LB</span>
+                </div>
+                <div
+                    class="player red"
+                    data-position="CB"
+                    data-team="red"
+                    style="left: 20%; top: 40%;"
+                >
+                    <span class="position-label">CB</span>
+                </div>
+                <div
+                    class="player red"
+                    data-position="CB"
+                    data-team="red"
+                    style="left: 20%; top: 60%;"
+                >
+                    <span class="position-label">CB</span>
+                </div>
+                <div
+                    class="player red"
+                    data-position="RB"
+                    data-team="red"
+                    style="left: 20%; top: 85%;"
+                >
+                    <span class="position-label">RB</span>
+                </div>
+                <div
+                    class="player red"
+                    data-position="LM"
+                    data-team="red"
+                    style="left: 35%; top: 20%;"
+                >
+                    <span class="position-label">LM</span>
+                </div>
+                <div
+                    class="player red"
+                    data-position="CM"
+                    data-team="red"
+                    style="left: 35%; top: 50%;"
+                >
+                    <span class="position-label">CM</span>
+                </div>
+                <div
+                    class="player red"
+                    data-position="RM"
+                    data-team="red"
+                    style="left: 35%; top: 80%;"
+                >
+                    <span class="position-label">RM</span>
+                </div>
+                <div
+                    class="player red"
+                    data-position="LW"
+                    data-team="red"
+                    style="left: 47%; top: 25%;"
+                >
+                    <span class="position-label">LW</span>
+                </div>
+                <div
+                    class="player red"
+                    data-position="ST"
+                    data-team="red"
+                    style="left: 47%; top: 50%;"
+                >
+                    <span class="position-label">ST</span>
+                </div>
+                <div
+                    class="player red"
+                    data-position="RW"
+                    data-team="red"
+                    style="left: 47%; top: 75%;"
+                >
+                    <span class="position-label">RW</span>
+                </div>
+
+                <!-- Blue Team (Right) -->
+                <div
+                    class="player blue"
+                    data-position="GK"
+                    data-team="blue"
+                    style="left: 95%; top: 50%;"
+                >
+                    <span class="position-label">GK</span>
+                </div>
+                <div
+                    class="player blue"
+                    data-position="LB"
+                    data-team="blue"
+                    style="left: 80%; top: 85%;"
+                >
+                    <span class="position-label">LB</span>
+                </div>
+                <div
+                    class="player blue"
+                    data-position="CB"
+                    data-team="blue"
+                    style="left: 80%; top: 60%;"
+                >
+                    <span class="position-label">CB</span>
+                </div>
+                <div
+                    class="player blue"
+                    data-position="CB"
+                    data-team="blue"
+                    style="left: 80%; top: 40%;"
+                >
+                    <span class="position-label">CB</span>
+                </div>
+                <div
+                    class="player blue"
+                    data-position="RB"
+                    data-team="blue"
+                    style="left: 80%; top: 15%;"
+                >
+                    <span class="position-label">RB</span>
+                </div>
+                <div
+                    class="player blue"
+                    data-position="LM"
+                    data-team="blue"
+                    style="left: 65%; top: 80%;"
+                >
+                    <span class="position-label">LM</span>
+                </div>
+                <div
+                    class="player blue"
+                    data-position="CM"
+                    data-team="blue"
+                    style="left: 65%; top: 50%;"
+                >
+                    <span class="position-label">CM</span>
+                </div>
+                <div
+                    class="player blue"
+                    data-position="RM"
+                    data-team="blue"
+                    style="left: 65%; top: 20%;"
+                >
+                    <span class="position-label">RM</span>
+                </div>
+                <div
+                    class="player blue"
+                    data-position="LW"
+                    data-team="blue"
+                    style="left: 53%; top: 75%;"
+                >
+                    <span class="position-label">LW</span>
+                </div>
+                <div
+                    class="player blue"
+                    data-position="ST"
+                    data-team="blue"
+                    style="left: 53%; top: 50%;"
+                >
+                    <span class="position-label">ST</span>
+                </div>
+                <div
+                    class="player blue"
+                    data-position="RW"
+                    data-team="blue"
+                    style="left: 53%; top: 25%;"
+                >
+                    <span class="position-label">RW</span>
+                </div>
+
+                <canvas id="linesCanvas"></canvas>
+
+                <!-- Soccer Ball -->
+                <div
+                    id="ball"
+                    class="ball"
+                >⚽</div>
+            </div>
+        </div>
+
+        <!-- Substitutes Section -->
+        <div class="substitutes-container">
+            <div class="subs-section">
+                <h3>紅隊替補</h3>
+                <div class="substitutes red-subs">
+                    <div
+                        class="player red sub"
+                        data-position="SUB"
+                        data-team="red"
+                    >
+                        <span class="position-label">SUB</span>
+                    </div>
+                    <div
+                        class="player red sub"
+                        data-position="SUB"
+                        data-team="red"
+                    >
+                        <span class="position-label">SUB</span>
+                    </div>
+                    <div
+                        class="player red sub"
+                        data-position="SUB"
+                        data-team="red"
+                    >
+                        <span class="position-label">SUB</span>
+                    </div>
+                    <div
+                        class="player red sub"
+                        data-position="SUB"
+                        data-team="red"
+                    >
+                        <span class="position-label">SUB</span>
+                    </div>
+                    <div
+                        class="player red sub"
+                        data-position="SUB"
+                        data-team="red"
+                    >
+                        <span class="position-label">SUB</span>
+                    </div>
+                </div>
+            </div>
+            <div class="subs-section">
+                <h3>藍隊替補</h3>
+                <div class="substitutes blue-subs">
+                    <div
+                        class="player blue sub"
+                        data-position="SUB"
+                        data-team="blue"
+                    >
+                        <span class="position-label">SUB</span>
+                    </div>
+                    <div
+                        class="player blue sub"
+                        data-position="SUB"
+                        data-team="blue"
+                    >
+                        <span class="position-label">SUB</span>
+                    </div>
+                    <div
+                        class="player blue sub"
+                        data-position="SUB"
+                        data-team="blue"
+                    >
+                        <span class="position-label">SUB</span>
+                    </div>
+                    <div
+                        class="player blue sub"
+                        data-position="SUB"
+                        data-team="blue"
+                    >
+                        <span class="position-label">SUB</span>
+                    </div>
+                    <div
+                        class="player blue sub"
+                        data-position="SUB"
+                        data-team="blue"
+                    >
+                        <span class="position-label">SUB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
