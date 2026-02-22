@@ -26,6 +26,16 @@
 
         <div class="formation-selectors">
             <div class="formation-selector">
+                <label for="orientationSelect">球場方向：</label>
+                <select id="orientationSelect">
+                    <option
+                        value="portrait"
+                        selected
+                    >直式 (Portrait)</option>
+                    <option value="landscape">橫式 (Landscape)</option>
+                </select>
+            </div>
+            <div class="formation-selector">
                 <label for="redFormation">紅隊陣型：</label>
                 <select id="redFormation">
                     <option
@@ -58,7 +68,7 @@
         <div class="field-container">
             <div
                 id="field"
-                class="field"
+                class="field portrait"
             >
                 <!-- Field Markings -->
                 <div class="field-markings">

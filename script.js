@@ -6,6 +6,7 @@ let initialPositions = new Map();
 let isDrawingLine = false;
 let lineStartPlayer = null;
 let lines = [];
+let currentOrientation = 'portrait';
 
 // Canvas setup
 const canvas = document.getElementById('linesCanvas');
@@ -19,7 +20,8 @@ function resizeCanvas() {
 }
 
 window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+// Call resize after a small delay to ensure field has settled
+setTimeout(resizeCanvas, 100);
 
 // Initialize player positions
 function saveInitialPositions() {
@@ -35,194 +37,72 @@ function saveInitialPositions() {
     });
 }
 
-saveInitialPositions();
-
-// Formation definitions
+// Formation definitions with dual orientation support
 const formations = {
     '4-3-3': {
         positions: ['GK', 'LB', 'CB', 'CB', 'RB', 'LM', 'CM', 'RM', 'LW', 'ST', 'RW'],
-        layout: {
-            red: [
-                { left: 5, top: 50 },   // GK
-                { left: 20, top: 15 },  // LB
-                { left: 20, top: 40 },  // CB
-                { left: 20, top: 60 },  // CB
-                { left: 20, top: 85 },  // RB
-                { left: 35, top: 20 },  // LM
-                { left: 35, top: 50 },  // CM
-                { left: 35, top: 80 },  // RM
-                { left: 47, top: 25 },  // LW
-                { left: 47, top: 50 },  // ST
-                { left: 47, top: 75 }   // RW
-            ],
-            blue: [
-                { left: 95, top: 50 },  // GK
-                { left: 80, top: 85 },  // LB
-                { left: 80, top: 60 },  // CB
-                { left: 80, top: 40 },  // CB
-                { left: 80, top: 15 },  // RB
-                { left: 65, top: 80 },  // LM
-                { left: 65, top: 50 },  // CM
-                { left: 65, top: 20 },  // RM
-                { left: 53, top: 75 },  // LW
-                { left: 53, top: 50 },  // ST
-                { left: 53, top: 25 }   // RW
-            ]
+        portrait: {
+            red: [{left:50,top:5},{left:15,top:20},{left:40,top:20},{left:60,top:20},{left:85,top:20},{left:20,top:35},{left:50,top:35},{left:80,top:35},{left:25,top:47},{left:50,top:47},{left:75,top:47}],
+            blue: [{left:50,top:95},{left:85,top:80},{left:60,top:80},{left:40,top:80},{left:15,top:80},{left:80,top:65},{left:50,top:65},{left:20,top:65},{left:75,top:53},{left:50,top:53},{left:25,top:53}]
+        },
+        landscape: {
+            red: [{left:5,top:50},{left:20,top:15},{left:20,top:40},{left:20,top:60},{left:20,top:85},{left:35,top:20},{left:35,top:50},{left:35,top:80},{left:47,top:25},{left:47,top:50},{left:47,top:75}],
+            blue: [{left:95,top:50},{left:80,top:85},{left:80,top:60},{left:80,top:40},{left:80,top:15},{left:65,top:80},{left:65,top:50},{left:65,top:20},{left:53,top:75},{left:53,top:50},{left:53,top:25}]
         }
     },
     '4-4-2': {
         positions: ['GK', 'LB', 'CB', 'CB', 'RB', 'LM', 'CM', 'CM', 'RM', 'ST', 'ST'],
-        layout: {
-            red: [
-                { left: 5, top: 50 },   // GK
-                { left: 20, top: 15 },  // LB
-                { left: 20, top: 40 },  // CB
-                { left: 20, top: 60 },  // CB
-                { left: 20, top: 85 },  // RB
-                { left: 35, top: 15 },  // LM
-                { left: 35, top: 40 },  // CM
-                { left: 35, top: 60 },  // CM
-                { left: 35, top: 85 },  // RM
-                { left: 47, top: 38 },  // ST
-                { left: 47, top: 62 }   // ST
-            ],
-            blue: [
-                { left: 95, top: 50 },  // GK
-                { left: 80, top: 85 },  // LB
-                { left: 80, top: 60 },  // CB
-                { left: 80, top: 40 },  // CB
-                { left: 80, top: 15 },  // RB
-                { left: 65, top: 85 },  // LM
-                { left: 65, top: 60 },  // CM
-                { left: 65, top: 40 },  // CM
-                { left: 65, top: 15 },  // RM
-                { left: 53, top: 62 },  // ST
-                { left: 53, top: 38 }   // ST
-            ]
+        portrait: {
+            red: [{left:50,top:5},{left:15,top:20},{left:40,top:20},{left:60,top:20},{left:85,top:20},{left:15,top:35},{left:40,top:35},{left:60,top:35},{left:85,top:35},{left:38,top:47},{left:62,top:47}],
+            blue: [{left:50,top:95},{left:85,top:80},{left:60,top:80},{left:40,top:80},{left:15,top:80},{left:85,top:65},{left:60,top:65},{left:40,top:65},{left:15,top:65},{left:62,top:53},{left:38,top:53}]
+        },
+        landscape: {
+            red: [{left:5,top:50},{left:20,top:15},{left:20,top:40},{left:20,top:60},{left:20,top:85},{left:35,top:15},{left:35,top:40},{left:35,top:60},{left:35,top:85},{left:47,top:38},{left:47,top:62}],
+            blue: [{left:95,top:50},{left:80,top:85},{left:80,top:60},{left:80,top:40},{left:80,top:15},{left:65,top:85},{left:65,top:60},{left:65,top:40},{left:65,top:15},{left:53,top:62},{left:53,top:38}]
         }
     },
     '3-5-2': {
         positions: ['GK', 'CB', 'CB', 'CB', 'LM', 'CM', 'CM', 'CM', 'RM', 'ST', 'ST'],
-        layout: {
-            red: [
-                { left: 5, top: 50 },   // GK
-                { left: 20, top: 25 },  // CB
-                { left: 20, top: 50 },  // CB
-                { left: 20, top: 75 },  // CB
-                { left: 35, top: 10 },  // LM
-                { left: 35, top: 33 },  // CM
-                { left: 35, top: 50 },  // CM
-                { left: 35, top: 67 },  // CM
-                { left: 35, top: 90 },  // RM
-                { left: 47, top: 38 },  // ST
-                { left: 47, top: 62 }   // ST
-            ],
-            blue: [
-                { left: 95, top: 50 },  // GK
-                { left: 80, top: 75 },  // CB
-                { left: 80, top: 50 },  // CB
-                { left: 80, top: 25 },  // CB
-                { left: 65, top: 90 },  // LM
-                { left: 65, top: 67 },  // CM
-                { left: 65, top: 50 },  // CM
-                { left: 65, top: 33 },  // CM
-                { left: 65, top: 10 },  // RM
-                { left: 53, top: 62 },  // ST
-                { left: 53, top: 38 }   // ST
-            ]
+        portrait: {
+            red: [{left:50,top:5},{left:25,top:20},{left:50,top:20},{left:75,top:20},{left:10,top:35},{left:33,top:35},{left:50,top:35},{left:67,top:35},{left:90,top:35},{left:38,top:47},{left:62,top:47}],
+            blue: [{left:50,top:95},{left:75,top:80},{left:50,top:80},{left:25,top:80},{left:90,top:65},{left:67,top:65},{left:50,top:65},{left:33,top:65},{left:10,top:65},{left:62,top:53},{left:38,top:53}]
+        },
+        landscape: {
+            red: [{left:5,top:50},{left:20,top:25},{left:20,top:50},{left:20,top:75},{left:35,top:10},{left:35,top:33},{left:35,top:50},{left:35,top:67},{left:35,top:90},{left:47,top:38},{left:47,top:62}],
+            blue: [{left:95,top:50},{left:80,top:75},{left:80,top:50},{left:80,top:25},{left:65,top:90},{left:65,top:67},{left:65,top:50},{left:65,top:33},{left:65,top:10},{left:53,top:62},{left:53,top:38}]
         }
     },
     '5-3-2': {
         positions: ['GK', 'LB', 'CB', 'CB', 'CB', 'RB', 'LM', 'CM', 'RM', 'ST', 'ST'],
-        layout: {
-            red: [
-                { left: 5, top: 50 },   // GK
-                { left: 20, top: 10 },  // LB
-                { left: 20, top: 32 },  // CB
-                { left: 20, top: 50 },  // CB
-                { left: 20, top: 68 },  // CB
-                { left: 20, top: 90 },  // RB
-                { left: 35, top: 20 },  // LM
-                { left: 35, top: 50 },  // CM
-                { left: 35, top: 80 },  // RM
-                { left: 47, top: 38 },  // ST
-                { left: 47, top: 62 }   // ST
-            ],
-            blue: [
-                { left: 95, top: 50 },  // GK
-                { left: 80, top: 90 },  // LB
-                { left: 80, top: 68 },  // CB
-                { left: 80, top: 50 },  // CB
-                { left: 80, top: 32 },  // CB
-                { left: 80, top: 10 },  // RB
-                { left: 65, top: 80 },  // LM
-                { left: 65, top: 50 },  // CM
-                { left: 65, top: 20 },  // RM
-                { left: 53, top: 62 },  // ST
-                { left: 53, top: 38 }   // ST
-            ]
+        portrait: {
+            red: [{left:50,top:5},{left:10,top:20},{left:32,top:20},{left:50,top:20},{left:68,top:20},{left:90,top:20},{left:20,top:35},{left:50,top:35},{left:80,top:35},{left:38,top:47},{left:62,top:47}],
+            blue: [{left:50,top:95},{left:90,top:80},{left:68,top:80},{left:50,top:80},{left:32,top:80},{left:10,top:80},{left:80,top:65},{left:50,top:65},{left:20,top:65},{left:62,top:53},{left:38,top:53}]
+        },
+        landscape: {
+            red: [{left:5,top:50},{left:20,top:10},{left:20,top:32},{left:20,top:50},{left:20,top:68},{left:20,top:90},{left:35,top:20},{left:35,top:50},{left:35,top:80},{left:47,top:38},{left:47,top:62}],
+            blue: [{left:95,top:50},{left:80,top:90},{left:80,top:68},{left:80,top:50},{left:80,top:32},{left:80,top:10},{left:65,top:80},{left:65,top:50},{left:65,top:20},{left:53,top:62},{left:53,top:38}]
         }
     },
     '4-2-3-1': {
         positions: ['GK', 'LB', 'CB', 'CB', 'RB', 'CDM', 'CDM', 'LW', 'CAM', 'RW', 'ST'],
-        layout: {
-            red: [
-                { left: 5, top: 50 },   // GK
-                { left: 20, top: 15 },  // LB
-                { left: 20, top: 40 },  // CB
-                { left: 20, top: 60 },  // CB
-                { left: 20, top: 85 },  // RB
-                { left: 32, top: 38 },  // CDM
-                { left: 32, top: 62 },  // CDM
-                { left: 42, top: 20 },  // LW
-                { left: 42, top: 50 },  // CAM
-                { left: 42, top: 80 },  // RW
-                { left: 47, top: 50 }   // ST
-            ],
-            blue: [
-                { left: 95, top: 50 },  // GK
-                { left: 80, top: 85 },  // LB
-                { left: 80, top: 60 },  // CB
-                { left: 80, top: 40 },  // CB
-                { left: 80, top: 15 },  // RB
-                { left: 68, top: 62 },  // CDM
-                { left: 68, top: 38 },  // CDM
-                { left: 58, top: 80 },  // LW
-                { left: 58, top: 50 },  // CAM
-                { left: 58, top: 20 },  // RW
-                { left: 53, top: 50 }   // ST
-            ]
+        portrait: {
+            red: [{left:50,top:5},{left:15,top:20},{left:40,top:20},{left:60,top:20},{left:85,top:20},{left:38,top:32},{left:62,top:32},{left:20,top:42},{left:50,top:42},{left:80,top:42},{left:50,top:47}],
+            blue: [{left:50,top:95},{left:85,top:80},{left:60,top:80},{left:40,top:80},{left:15,top:80},{left:62,top:68},{left:38,top:68},{left:80,top:58},{left:50,top:58},{left:20,top:58},{left:50,top:53}]
+        },
+        landscape: {
+            red: [{left:5,top:50},{left:20,top:15},{left:20,top:40},{left:20,top:60},{left:20,top:85},{left:32,top:38},{left:32,top:62},{left:42,top:20},{left:42,top:50},{left:42,top:80},{left:47,top:50}],
+            blue: [{left:95,top:50},{left:80,top:85},{left:80,top:60},{left:80,top:40},{left:80,top:15},{left:68,top:62},{left:68,top:38},{left:58,top:80},{left:58,top:50},{left:58,top:20},{left:53,top:50}]
         }
     },
     '3-4-3': {
         positions: ['GK', 'CB', 'CB', 'CB', 'LM', 'CM', 'CM', 'RM', 'LW', 'ST', 'RW'],
-        layout: {
-            red: [
-                { left: 5, top: 50 },   // GK
-                { left: 20, top: 25 },  // CB
-                { left: 20, top: 50 },  // CB
-                { left: 20, top: 75 },  // CB
-                { left: 35, top: 15 },  // LM
-                { left: 35, top: 40 },  // CM
-                { left: 35, top: 60 },  // CM
-                { left: 35, top: 85 },  // RM
-                { left: 47, top: 25 },  // LW
-                { left: 47, top: 50 },  // ST
-                { left: 47, top: 75 }   // RW
-            ],
-            blue: [
-                { left: 95, top: 50 },  // GK
-                { left: 80, top: 75 },  // CB
-                { left: 80, top: 50 },  // CB
-                { left: 80, top: 25 },  // CB
-                { left: 65, top: 85 },  // LM
-                { left: 65, top: 60 },  // CM
-                { left: 65, top: 40 },  // CM
-                { left: 65, top: 15 },  // RM
-                { left: 53, top: 75 },  // LW
-                { left: 53, top: 50 },  // ST
-                { left: 53, top: 25 }   // RW
-            ]
+        portrait: {
+            red: [{left:50,top:5},{left:25,top:20},{left:50,top:20},{left:75,top:20},{left:15,top:35},{left:40,top:35},{left:60,top:35},{left:85,top:35},{left:25,top:47},{left:50,top:47},{left:75,top:47}],
+            blue: [{left:50,top:95},{left:75,top:80},{left:50,top:80},{left:25,top:80},{left:85,top:65},{left:60,top:65},{left:40,top:65},{left:15,top:65},{left:75,top:53},{left:50,top:53},{left:25,top:53}]
+        },
+        landscape: {
+            red: [{left:5,top:50},{left:20,top:25},{left:20,top:50},{left:20,top:75},{left:35,top:15},{left:35,top:40},{left:35,top:60},{left:35,top:85},{left:47,top:25},{left:47,top:50},{left:47,top:75}],
+            blue: [{left:95,top:50},{left:80,top:75},{left:80,top:50},{left:80,top:25},{left:65,top:85},{left:65,top:60},{left:65,top:40},{left:65,top:15},{left:53,top:75},{left:53,top:50},{left:53,top:25}]
         }
     }
 };
@@ -235,7 +115,7 @@ function applyFormation(team, formationName) {
     const teamPlayers = Array.from(document.querySelectorAll(`.player.${team}`))
         .filter(p => !p.classList.contains('sub'));
 
-    const layout = formation.layout[team];
+    const layout = formation[currentOrientation][team];
     const positions = formation.positions;
 
     teamPlayers.forEach((player, index) => {
@@ -243,7 +123,6 @@ function applyFormation(team, formationName) {
             player.style.left = layout[index].left + '%';
             player.style.top = layout[index].top + '%';
 
-            // Update position label
             const label = player.querySelector('.position-label');
             if (label && positions[index]) {
                 label.textContent = positions[index];
@@ -251,12 +130,30 @@ function applyFormation(team, formationName) {
             }
         }
     });
-
-    // Update initial positions
     saveInitialPositions();
 }
 
-// Formation change handlers
+// Function to apply orientation
+function applyOrientation(orientation) {
+    currentOrientation = orientation;
+    field.className = `field ${orientation}`;
+
+    // Re-apply current formations to all players
+    const redFormation = document.getElementById('redFormation').value;
+    const blueFormation = document.getElementById('blueFormation').value;
+
+    applyFormation('red', redFormation);
+    applyFormation('blue', blueFormation);
+
+    // Refresh canvas
+    setTimeout(resizeCanvas, 300);
+}
+
+// Event Listeners
+document.getElementById('orientationSelect').addEventListener('change', (e) => {
+    applyOrientation(e.target.value);
+});
+
 document.getElementById('redFormation').addEventListener('change', (e) => {
     applyFormation('red', e.target.value);
 });
@@ -265,80 +162,13 @@ document.getElementById('blueFormation').addEventListener('change', (e) => {
     applyFormation('blue', e.target.value);
 });
 
-// Ball drag functionality
-const ball = document.getElementById('ball');
-let ballOffsetX = 0;
-let ballOffsetY = 0;
-
-ball.addEventListener('mousedown', startBallDrag);
-ball.addEventListener('touchstart', startBallDrag);
-
-function startBallDrag(e) {
-    e.preventDefault();
-    ball.classList.add('dragging');
-
-    const rect = ball.getBoundingClientRect();
-    const fieldRect = field.getBoundingClientRect();
-
-    if (e.type === 'touchstart') {
-        ballOffsetX = e.touches[0].clientX - rect.left - rect.width / 2;
-        ballOffsetY = e.touches[0].clientY - rect.top - rect.height / 2;
-    } else {
-        ballOffsetX = e.clientX - rect.left - rect.width / 2;
-        ballOffsetY = e.clientY - rect.top - rect.height / 2;
-    }
-
-    document.addEventListener('mousemove', dragBall);
-    document.addEventListener('touchmove', dragBall);
-    document.addEventListener('mouseup', stopBallDrag);
-    document.addEventListener('touchend', stopBallDrag);
-}
-
-function dragBall(e) {
-    const fieldRect = field.getBoundingClientRect();
-    let clientX, clientY;
-
-    if (e.type === 'touchmove') {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-    } else {
-        clientX = e.clientX;
-        clientY = e.clientY;
-    }
-
-    let x = ((clientX - fieldRect.left - ballOffsetX) / fieldRect.width) * 100;
-    let y = ((clientY - fieldRect.top - ballOffsetY) / fieldRect.height) * 100;
-
-    // Constrain to field boundaries
-    x = Math.max(2, Math.min(98, x));
-    y = Math.max(2, Math.min(98, y));
-
-    ball.style.left = x + '%';
-    ball.style.top = y + '%';
-}
-
-function stopBallDrag() {
-    ball.classList.remove('dragging');
-
-    document.removeEventListener('mousemove', dragBall);
-    document.removeEventListener('touchmove', dragBall);
-    document.removeEventListener('mouseup', stopBallDrag);
-    document.removeEventListener('touchend', stopBallDrag);
-}
-
 // Drag and drop functionality
 const players = document.querySelectorAll('.player');
 
 players.forEach(player => {
-    // Skip substitute players
-    if (player.classList.contains('sub')) {
-        return;
-    }
-
+    if (player.classList.contains('sub')) return;
     player.addEventListener('mousedown', startDrag);
     player.addEventListener('touchstart', startDrag);
-
-    // Right click to start drawing line
     player.addEventListener('contextmenu', (e) => {
         e.preventDefault();
         startDrawingLine(player);
@@ -347,11 +177,11 @@ players.forEach(player => {
 
 function startDrag(e) {
     e.preventDefault();
-    draggedElement = e.target.closest('.player');
-    draggedElement.classList.add('dragging');
+    draggedElement = e.target.closest('.player') || e.target.closest('.ball');
+    if (!draggedElement) return;
 
+    draggedElement.classList.add('dragging');
     const rect = draggedElement.getBoundingClientRect();
-    const fieldRect = field.getBoundingClientRect();
 
     if (e.type === 'touchstart') {
         offsetX = e.touches[0].clientX - rect.left - rect.width / 2;
@@ -369,7 +199,6 @@ function startDrag(e) {
 
 function drag(e) {
     if (!draggedElement) return;
-
     const fieldRect = field.getBoundingClientRect();
     let clientX, clientY;
 
@@ -384,13 +213,11 @@ function drag(e) {
     let x = ((clientX - fieldRect.left - offsetX) / fieldRect.width) * 100;
     let y = ((clientY - fieldRect.top - offsetY) / fieldRect.height) * 100;
 
-    // Constrain to field boundaries
     x = Math.max(2, Math.min(98, x));
     y = Math.max(2, Math.min(98, y));
 
     draggedElement.style.left = x + '%';
     draggedElement.style.top = y + '%';
-
     redrawLines();
 }
 
@@ -399,14 +226,18 @@ function stopDrag() {
         draggedElement.classList.remove('dragging');
         draggedElement = null;
     }
-
     document.removeEventListener('mousemove', drag);
     document.removeEventListener('touchmove', drag);
     document.removeEventListener('mouseup', stopDrag);
     document.removeEventListener('touchend', stopDrag);
 }
 
-// Line drawing functionality
+// Ball Dragging
+const ball = document.getElementById('ball');
+ball.addEventListener('mousedown', startDrag);
+ball.addEventListener('touchstart', startDrag);
+
+// Line drawing
 function startDrawingLine(player) {
     if (!lineStartPlayer) {
         lineStartPlayer = player;
@@ -427,7 +258,6 @@ function startDrawingLine(player) {
 
 function redrawLines() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     lines.forEach(line => {
         const startRect = line.start.getBoundingClientRect();
         const endRect = line.end.getBoundingClientRect();
@@ -447,20 +277,13 @@ function redrawLines() {
         ctx.setLineDash([10, 5]);
         ctx.stroke();
 
-        // Draw arrow
         const angle = Math.atan2(endY - startY, endX - startX);
         const arrowLength = 15;
         ctx.beginPath();
         ctx.moveTo(endX, endY);
-        ctx.lineTo(
-            endX - arrowLength * Math.cos(angle - Math.PI / 6),
-            endY - arrowLength * Math.sin(angle - Math.PI / 6)
-        );
+        ctx.lineTo(endX - arrowLength * Math.cos(angle - Math.PI / 6), endY - arrowLength * Math.sin(angle - Math.PI / 6));
         ctx.moveTo(endX, endY);
-        ctx.lineTo(
-            endX - arrowLength * Math.cos(angle + Math.PI / 6),
-            endY - arrowLength * Math.sin(angle + Math.PI / 6)
-        );
+        ctx.lineTo(endX - arrowLength * Math.cos(angle + Math.PI / 6), endY - arrowLength * Math.sin(angle + Math.PI / 6));
         ctx.setLineDash([]);
         ctx.stroke();
     });
@@ -468,10 +291,10 @@ function redrawLines() {
 
 // Button controls
 document.getElementById('resetBtn').addEventListener('click', () => {
-    initialPositions.forEach((position, player) => {
-        player.style.left = position.left;
-        player.style.top = position.top;
-    });
+    const redFormation = document.getElementById('redFormation').value;
+    const blueFormation = document.getElementById('blueFormation').value;
+    applyFormation('red', redFormation);
+    applyFormation('blue', blueFormation);
     redrawLines();
 });
 
@@ -486,71 +309,32 @@ document.getElementById('clearLinesBtn').addEventListener('click', () => {
 
 document.getElementById('switchTeamsBtn').addEventListener('click', () => {
     const allPlayers = document.querySelectorAll('.player');
-    const redPlayers = Array.from(allPlayers).filter(p => p.dataset.team === 'red');
-    const bluePlayers = Array.from(allPlayers).filter(p => p.dataset.team === 'blue');
+    const redPlayers = Array.from(allPlayers).filter(p => p.dataset.team === 'red' && !p.classList.contains('sub'));
+    const bluePlayers = Array.from(allPlayers).filter(p => p.dataset.team === 'blue' && !p.classList.contains('sub'));
 
-    // Swap positions
     for (let i = 0; i < Math.min(redPlayers.length, bluePlayers.length); i++) {
-        const redLeft = redPlayers[i].style.left;
-        const redTop = redPlayers[i].style.top;
-        const blueLeft = bluePlayers[i].style.left;
-        const blueTop = bluePlayers[i].style.top;
-
-        redPlayers[i].style.left = blueLeft;
-        redPlayers[i].style.top = blueTop;
-        bluePlayers[i].style.left = redLeft;
-        bluePlayers[i].style.top = redTop;
+        const rL = redPlayers[i].style.left;
+        const rT = redPlayers[i].style.top;
+        redPlayers[i].style.left = bluePlayers[i].style.left;
+        redPlayers[i].style.top = bluePlayers[i].style.top;
+        bluePlayers[i].style.left = rL;
+        bluePlayers[i].style.top = rT;
     }
-
-    // Update initial positions
     saveInitialPositions();
     redrawLines();
 });
 
-// Keyboard shortcuts
+// Initial load
+document.addEventListener('DOMContentLoaded', () => {
+    applyOrientation('portrait');
+});
+
+// Keyboard
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && lineStartPlayer) {
         lineStartPlayer.style.boxShadow = '';
         lineStartPlayer = null;
     }
-
-    if (e.key === 'r' || e.key === 'R') {
-        document.getElementById('resetBtn').click();
-    }
-
-    if (e.key === 'c' || e.key === 'C') {
-        document.getElementById('clearLinesBtn').click();
-    }
+    if (e.key === 'r' || e.key === 'R') document.getElementById('resetBtn').click();
+    if (e.key === 'c' || e.key === 'C') document.getElementById('clearLinesBtn').click();
 });
-
-// Instructions tooltip
-const instructions = document.createElement('div');
-instructions.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 14px;
-    max-width: 300px;
-    z-index: 10000;
-`;
-instructions.innerHTML = `
-    <strong>操作說明：</strong><br>
-    • 拖曳球員移動位置<br>
-    • 右鍵點擊球員開始畫線<br>
-    • 再次右鍵點擊另一球員完成畫線<br>
-    • 按 R 重置位置<br>
-    • 按 C 清除線條<br>
-    • 按 ESC 取消畫線
-`;
-document.body.appendChild(instructions);
-
-// Auto-hide instructions after 10 seconds
-setTimeout(() => {
-    instructions.style.transition = 'opacity 1s';
-    instructions.style.opacity = '0';
-    setTimeout(() => instructions.remove(), 1000);
-}, 10000);
