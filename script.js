@@ -42,67 +42,67 @@ const formations = {
     '4-3-3': {
         positions: ['GK', 'LB', 'CB', 'CB', 'RB', 'LM', 'CM', 'RM', 'LW', 'ST', 'RW'],
         portrait: {
-            red: [{left:50,top:5},{left:15,top:20},{left:40,top:20},{left:60,top:20},{left:85,top:20},{left:20,top:35},{left:50,top:35},{left:80,top:35},{left:25,top:47},{left:50,top:47},{left:75,top:47}],
-            blue: [{left:50,top:95},{left:85,top:80},{left:60,top:80},{left:40,top:80},{left:15,top:80},{left:80,top:65},{left:50,top:65},{left:20,top:65},{left:75,top:53},{left:50,top:53},{left:25,top:53}]
+            red: [{ left: 50, top: 5 }, { left: 15, top: 20 }, { left: 40, top: 20 }, { left: 60, top: 20 }, { left: 85, top: 20 }, { left: 20, top: 35 }, { left: 50, top: 35 }, { left: 80, top: 35 }, { left: 25, top: 47 }, { left: 50, top: 47 }, { left: 75, top: 47 }],
+            blue: [{ left: 50, top: 95 }, { left: 85, top: 80 }, { left: 60, top: 80 }, { left: 40, top: 80 }, { left: 15, top: 80 }, { left: 80, top: 65 }, { left: 50, top: 65 }, { left: 20, top: 65 }, { left: 75, top: 53 }, { left: 50, top: 53 }, { left: 25, top: 53 }]
         },
         landscape: {
-            red: [{left:5,top:50},{left:20,top:15},{left:20,top:40},{left:20,top:60},{left:20,top:85},{left:35,top:20},{left:35,top:50},{left:35,top:80},{left:47,top:25},{left:47,top:50},{left:47,top:75}],
-            blue: [{left:95,top:50},{left:80,top:85},{left:80,top:60},{left:80,top:40},{left:80,top:15},{left:65,top:80},{left:65,top:50},{left:65,top:20},{left:53,top:75},{left:53,top:50},{left:53,top:25}]
+            red: [{ left: 5, top: 50 }, { left: 20, top: 15 }, { left: 20, top: 40 }, { left: 20, top: 60 }, { left: 20, top: 85 }, { left: 35, top: 20 }, { left: 35, top: 50 }, { left: 35, top: 80 }, { left: 47, top: 25 }, { left: 47, top: 50 }, { left: 47, top: 75 }],
+            blue: [{ left: 95, top: 50 }, { left: 80, top: 85 }, { left: 80, top: 60 }, { left: 80, top: 40 }, { left: 80, top: 15 }, { left: 65, top: 80 }, { left: 65, top: 50 }, { left: 65, top: 20 }, { left: 53, top: 75 }, { left: 53, top: 50 }, { left: 53, top: 25 }]
         }
     },
     '4-4-2': {
         positions: ['GK', 'LB', 'CB', 'CB', 'RB', 'LM', 'CM', 'CM', 'RM', 'ST', 'ST'],
         portrait: {
-            red: [{left:50,top:5},{left:15,top:20},{left:40,top:20},{left:60,top:20},{left:85,top:20},{left:15,top:35},{left:40,top:35},{left:60,top:35},{left:85,top:35},{left:38,top:47},{left:62,top:47}],
-            blue: [{left:50,top:95},{left:85,top:80},{left:60,top:80},{left:40,top:80},{left:15,top:80},{left:85,top:65},{left:60,top:65},{left:40,top:65},{left:15,top:65},{left:62,top:53},{left:38,top:53}]
+            red: [{ left: 50, top: 5 }, { left: 15, top: 20 }, { left: 40, top: 20 }, { left: 60, top: 20 }, { left: 85, top: 20 }, { left: 15, top: 35 }, { left: 40, top: 35 }, { left: 60, top: 35 }, { left: 85, top: 35 }, { left: 38, top: 47 }, { left: 62, top: 47 }],
+            blue: [{ left: 50, top: 95 }, { left: 85, top: 80 }, { left: 60, top: 80 }, { left: 40, top: 80 }, { left: 15, top: 80 }, { left: 85, top: 65 }, { left: 60, top: 65 }, { left: 40, top: 65 }, { left: 15, top: 65 }, { left: 62, top: 53 }, { left: 38, top: 53 }]
         },
         landscape: {
-            red: [{left:5,top:50},{left:20,top:15},{left:20,top:40},{left:20,top:60},{left:20,top:85},{left:35,top:15},{left:35,top:40},{left:35,top:60},{left:35,top:85},{left:47,top:38},{left:47,top:62}],
-            blue: [{left:95,top:50},{left:80,top:85},{left:80,top:60},{left:80,top:40},{left:80,top:15},{left:65,top:85},{left:65,top:60},{left:65,top:40},{left:65,top:15},{left:53,top:62},{left:53,top:38}]
+            red: [{ left: 5, top: 50 }, { left: 20, top: 15 }, { left: 20, top: 40 }, { left: 20, top: 60 }, { left: 20, top: 85 }, { left: 35, top: 15 }, { left: 35, top: 40 }, { left: 35, top: 60 }, { left: 35, top: 85 }, { left: 47, top: 38 }, { left: 47, top: 62 }],
+            blue: [{ left: 95, top: 50 }, { left: 80, top: 85 }, { left: 80, top: 60 }, { left: 80, top: 40 }, { left: 80, top: 15 }, { left: 65, top: 85 }, { left: 65, top: 60 }, { left: 65, top: 40 }, { left: 65, top: 15 }, { left: 53, top: 62 }, { left: 53, top: 38 }]
         }
     },
     '3-5-2': {
         positions: ['GK', 'CB', 'CB', 'CB', 'LM', 'CM', 'CM', 'CM', 'RM', 'ST', 'ST'],
         portrait: {
-            red: [{left:50,top:5},{left:25,top:20},{left:50,top:20},{left:75,top:20},{left:10,top:35},{left:33,top:35},{left:50,top:35},{left:67,top:35},{left:90,top:35},{left:38,top:47},{left:62,top:47}],
-            blue: [{left:50,top:95},{left:75,top:80},{left:50,top:80},{left:25,top:80},{left:90,top:65},{left:67,top:65},{left:50,top:65},{left:33,top:65},{left:10,top:65},{left:62,top:53},{left:38,top:53}]
+            red: [{ left: 50, top: 5 }, { left: 25, top: 20 }, { left: 50, top: 20 }, { left: 75, top: 20 }, { left: 10, top: 35 }, { left: 33, top: 35 }, { left: 50, top: 35 }, { left: 67, top: 35 }, { left: 90, top: 35 }, { left: 38, top: 47 }, { left: 62, top: 47 }],
+            blue: [{ left: 50, top: 95 }, { left: 75, top: 80 }, { left: 50, top: 80 }, { left: 25, top: 80 }, { left: 90, top: 65 }, { left: 67, top: 65 }, { left: 50, top: 65 }, { left: 33, top: 65 }, { left: 10, top: 65 }, { left: 62, top: 53 }, { left: 38, top: 53 }]
         },
         landscape: {
-            red: [{left:5,top:50},{left:20,top:25},{left:20,top:50},{left:20,top:75},{left:35,top:10},{left:35,top:33},{left:35,top:50},{left:35,top:67},{left:35,top:90},{left:47,top:38},{left:47,top:62}],
-            blue: [{left:95,top:50},{left:80,top:75},{left:80,top:50},{left:80,top:25},{left:65,top:90},{left:65,top:67},{left:65,top:50},{left:65,top:33},{left:65,top:10},{left:53,top:62},{left:53,top:38}]
+            red: [{ left: 5, top: 50 }, { left: 20, top: 25 }, { left: 20, top: 50 }, { left: 20, top: 75 }, { left: 35, top: 10 }, { left: 35, top: 33 }, { left: 35, top: 50 }, { left: 35, top: 67 }, { left: 35, top: 90 }, { left: 47, top: 38 }, { left: 47, top: 62 }],
+            blue: [{ left: 95, top: 50 }, { left: 80, top: 75 }, { left: 80, top: 50 }, { left: 80, top: 25 }, { left: 65, top: 90 }, { left: 65, top: 67 }, { left: 65, top: 50 }, { left: 65, top: 33 }, { left: 65, top: 10 }, { left: 53, top: 62 }, { left: 53, top: 38 }]
         }
     },
     '5-3-2': {
         positions: ['GK', 'LB', 'CB', 'CB', 'CB', 'RB', 'LM', 'CM', 'RM', 'ST', 'ST'],
         portrait: {
-            red: [{left:50,top:5},{left:10,top:20},{left:32,top:20},{left:50,top:20},{left:68,top:20},{left:90,top:20},{left:20,top:35},{left:50,top:35},{left:80,top:35},{left:38,top:47},{left:62,top:47}],
-            blue: [{left:50,top:95},{left:90,top:80},{left:68,top:80},{left:50,top:80},{left:32,top:80},{left:10,top:80},{left:80,top:65},{left:50,top:65},{left:20,top:65},{left:62,top:53},{left:38,top:53}]
+            red: [{ left: 50, top: 5 }, { left: 10, top: 20 }, { left: 32, top: 20 }, { left: 50, top: 20 }, { left: 68, top: 20 }, { left: 90, top: 20 }, { left: 20, top: 35 }, { left: 50, top: 35 }, { left: 80, top: 35 }, { left: 38, top: 47 }, { left: 62, top: 47 }],
+            blue: [{ left: 50, top: 95 }, { left: 90, top: 80 }, { left: 68, top: 80 }, { left: 50, top: 80 }, { left: 32, top: 80 }, { left: 10, top: 80 }, { left: 80, top: 65 }, { left: 50, top: 65 }, { left: 20, top: 65 }, { left: 62, top: 53 }, { left: 38, top: 53 }]
         },
         landscape: {
-            red: [{left:5,top:50},{left:20,top:10},{left:20,top:32},{left:20,top:50},{left:20,top:68},{left:20,top:90},{left:35,top:20},{left:35,top:50},{left:35,top:80},{left:47,top:38},{left:47,top:62}],
-            blue: [{left:95,top:50},{left:80,top:90},{left:80,top:68},{left:80,top:50},{left:80,top:32},{left:80,top:10},{left:65,top:80},{left:65,top:50},{left:65,top:20},{left:53,top:62},{left:53,top:38}]
+            red: [{ left: 5, top: 50 }, { left: 20, top: 10 }, { left: 20, top: 32 }, { left: 20, top: 50 }, { left: 20, top: 68 }, { left: 20, top: 90 }, { left: 35, top: 20 }, { left: 35, top: 50 }, { left: 35, top: 80 }, { left: 47, top: 38 }, { left: 47, top: 62 }],
+            blue: [{ left: 95, top: 50 }, { left: 80, top: 90 }, { left: 80, top: 68 }, { left: 80, top: 50 }, { left: 80, top: 32 }, { left: 80, top: 10 }, { left: 65, top: 80 }, { left: 65, top: 50 }, { left: 65, top: 20 }, { left: 53, top: 62 }, { left: 53, top: 38 }]
         }
     },
     '4-2-3-1': {
         positions: ['GK', 'LB', 'CB', 'CB', 'RB', 'CDM', 'CDM', 'LW', 'CAM', 'RW', 'ST'],
         portrait: {
-            red: [{left:50,top:5},{left:15,top:20},{left:40,top:20},{left:60,top:20},{left:85,top:20},{left:38,top:32},{left:62,top:32},{left:20,top:42},{left:50,top:42},{left:80,top:42},{left:50,top:47}],
-            blue: [{left:50,top:95},{left:85,top:80},{left:60,top:80},{left:40,top:80},{left:15,top:80},{left:62,top:68},{left:38,top:68},{left:80,top:58},{left:50,top:58},{left:20,top:58},{left:50,top:53}]
+            red: [{ left: 50, top: 5 }, { left: 15, top: 20 }, { left: 40, top: 20 }, { left: 60, top: 20 }, { left: 85, top: 20 }, { left: 38, top: 32 }, { left: 62, top: 32 }, { left: 20, top: 42 }, { left: 50, top: 42 }, { left: 80, top: 42 }, { left: 50, top: 47 }],
+            blue: [{ left: 50, top: 95 }, { left: 85, top: 80 }, { left: 60, top: 80 }, { left: 40, top: 80 }, { left: 15, top: 80 }, { left: 62, top: 68 }, { left: 38, top: 68 }, { left: 80, top: 58 }, { left: 50, top: 58 }, { left: 20, top: 58 }, { left: 50, top: 53 }]
         },
         landscape: {
-            red: [{left:5,top:50},{left:20,top:15},{left:20,top:40},{left:20,top:60},{left:20,top:85},{left:32,top:38},{left:32,top:62},{left:42,top:20},{left:42,top:50},{left:42,top:80},{left:47,top:50}],
-            blue: [{left:95,top:50},{left:80,top:85},{left:80,top:60},{left:80,top:40},{left:80,top:15},{left:68,top:62},{left:68,top:38},{left:58,top:80},{left:58,top:50},{left:58,top:20},{left:53,top:50}]
+            red: [{ left: 5, top: 50 }, { left: 20, top: 15 }, { left: 20, top: 40 }, { left: 20, top: 60 }, { left: 20, top: 85 }, { left: 32, top: 38 }, { left: 32, top: 62 }, { left: 42, top: 20 }, { left: 42, top: 50 }, { left: 42, top: 80 }, { left: 47, top: 50 }],
+            blue: [{ left: 95, top: 50 }, { left: 80, top: 85 }, { left: 80, top: 60 }, { left: 80, top: 40 }, { left: 80, top: 15 }, { left: 68, top: 62 }, { left: 68, top: 38 }, { left: 58, top: 80 }, { left: 58, top: 50 }, { left: 58, top: 20 }, { left: 53, top: 50 }]
         }
     },
     '3-4-3': {
         positions: ['GK', 'CB', 'CB', 'CB', 'LM', 'CM', 'CM', 'RM', 'LW', 'ST', 'RW'],
         portrait: {
-            red: [{left:50,top:5},{left:25,top:20},{left:50,top:20},{left:75,top:20},{left:15,top:35},{left:40,top:35},{left:60,top:35},{left:85,top:35},{left:25,top:47},{left:50,top:47},{left:75,top:47}],
-            blue: [{left:50,top:95},{left:75,top:80},{left:50,top:80},{left:25,top:80},{left:85,top:65},{left:60,top:65},{left:40,top:65},{left:15,top:65},{left:75,top:53},{left:50,top:53},{left:25,top:53}]
+            red: [{ left: 50, top: 5 }, { left: 25, top: 20 }, { left: 50, top: 20 }, { left: 75, top: 20 }, { left: 15, top: 35 }, { left: 40, top: 35 }, { left: 60, top: 35 }, { left: 85, top: 35 }, { left: 25, top: 47 }, { left: 50, top: 47 }, { left: 75, top: 47 }],
+            blue: [{ left: 50, top: 95 }, { left: 75, top: 80 }, { left: 50, top: 80 }, { left: 25, top: 80 }, { left: 85, top: 65 }, { left: 60, top: 65 }, { left: 40, top: 65 }, { left: 15, top: 65 }, { left: 75, top: 53 }, { left: 50, top: 53 }, { left: 25, top: 53 }]
         },
         landscape: {
-            red: [{left:5,top:50},{left:20,top:25},{left:20,top:50},{left:20,top:75},{left:35,top:15},{left:35,top:40},{left:35,top:60},{left:35,top:85},{left:47,top:25},{left:47,top:50},{left:47,top:75}],
-            blue: [{left:95,top:50},{left:80,top:75},{left:80,top:50},{left:80,top:25},{left:65,top:85},{left:65,top:60},{left:65,top:40},{left:65,top:15},{left:53,top:75},{left:53,top:50},{left:53,top:25}]
+            red: [{ left: 5, top: 50 }, { left: 20, top: 25 }, { left: 20, top: 50 }, { left: 20, top: 75 }, { left: 35, top: 15 }, { left: 35, top: 40 }, { left: 35, top: 60 }, { left: 35, top: 85 }, { left: 47, top: 25 }, { left: 47, top: 50 }, { left: 47, top: 75 }],
+            blue: [{ left: 95, top: 50 }, { left: 80, top: 75 }, { left: 80, top: 50 }, { left: 80, top: 25 }, { left: 65, top: 85 }, { left: 65, top: 60 }, { left: 65, top: 40 }, { left: 65, top: 15 }, { left: 53, top: 75 }, { left: 53, top: 50 }, { left: 53, top: 25 }]
         }
     }
 };
@@ -145,8 +145,10 @@ function applyOrientation(orientation) {
     applyFormation('red', redFormation);
     applyFormation('blue', blueFormation);
 
-    // Refresh canvas
+    // Refresh canvas multiple times during/after transition
+    resizeCanvas();
     setTimeout(resizeCanvas, 300);
+    setTimeout(resizeCanvas, 600); // After 500ms transition
 }
 
 // Event Listeners
